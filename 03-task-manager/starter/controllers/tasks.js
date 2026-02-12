@@ -1,13 +1,22 @@
 const Task = require('../models/task')
+const asyncWrapper = require('../middleware/async')
 
-const getAllTasks = (req, res) => {
-    res.send('all')
-}
+const getAllTasks = asyncWrapper(async (req, res) => {
+    // try{
+            const tasks = await Task.find({})
+            res.status(200).send({tasks})
+    // }catch(err){
+    //     res.status(500).send({msg:err})
+    // }
+})
 
-const createNewTasks = async (req, res) => {
-    const task = await Task.create({name:'kushan'})
-    res.send(task)
-}
+const createNewTasks = asyncWrapper(async (req, res) => {
+    // try {
+        const task = await Task.create(req.body)
+        res.status(201).send({task})
+    // } catch(err) {
+    // }    
+})
 
 const getSingleTask = (req, res) => {
 
