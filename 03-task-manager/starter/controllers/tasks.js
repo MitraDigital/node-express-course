@@ -18,8 +18,15 @@ const createNewTasks = asyncWrapper(async (req, res) => {
     // }    
 })
 
-const getSingleTask = (req, res) => {
-
+const getSingleTask = async (req, res) => {
+    console.log(req.params)
+    const {id: taskId} = req.params
+    const task = await Task.findOne(taskId)
+    if (!task) {
+        console.log('gg')
+    }
+    res.send('hello')
+    // const task = await Task.findOne()
 }
 
 const  updateTask = (req, res) => {
