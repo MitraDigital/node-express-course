@@ -1,4 +1,4 @@
-const CustomAPIError = require('../errors/custom-error')
+const BadRequestError = require('../errors')
 const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
@@ -6,7 +6,7 @@ const login = async (req, res) => {
     const {username, password} = req.body
 
     if(!username || !password) {
-        throw new CustomAPIError("no un or pw", 400)
+        throw new BadRequestError("no un or pw")
     }
 
     const id = new Date().getDate()
@@ -19,22 +19,7 @@ const login = async (req, res) => {
 
 
 const dashboard = async (req, res) => {
-    const header = req.headers.authorization
-    console.log(header)
-    if (!header || !header.startsWith('Bearer ')){
-        throw new CustomAPIError("no token", 401)
-    }
-    const token = header.split(' ')[1]
-    console.log(token)
-    try {
-        jwt.verify(token, process.env.JWT_SECRET)
-    } catch( err) {
-        throw new CustomAPIError('invalid token', 401)
-        console.log(err)
-    }
-    
-
-    res.send('Dashboard')
+    res.status(200).json({msg:`Dashboard for ${req.user.username}`, secret:'test'})
 }
 
 module.exports = { login, dashboard }
