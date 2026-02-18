@@ -1,5 +1,7 @@
 const { required } = require('joi')
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+
 const { Schema } = mongoose
 
 const UserSchema = new Schema({
@@ -21,6 +23,12 @@ const UserSchema = new Schema({
         minLength: 6,
         maxLength: 12
     }
+})
+
+UserSchema.pre('save', async function(){
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+    
 })
 
 module.exports = mongoose.model('User', UserSchema)

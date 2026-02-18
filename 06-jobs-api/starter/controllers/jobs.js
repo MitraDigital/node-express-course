@@ -1,21 +1,21 @@
 const getAllJobs = async (req, res) => {
-    req.sernd('get all jobs')
+    res.send('get all jobs')
 }
 
 const getJob = async (req, res) => {
-    req.sernd('get job')
+    res.send('get job')
 }
 
 const createJob = async (req, res) => {
-    req.sernd('create job')
+    res.send('create job')
 }
 
 const updateJob = async (req, res) => {
-    req.sernd('update job')
+    res.send('update job')
 }
 
 const deleteJob = async (req, res) => {
-    req.sernd('delete job')
+    res.send('delete job')
 }
 
 module.exports = {
