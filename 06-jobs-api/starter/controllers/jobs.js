@@ -10,6 +10,8 @@ const getAllJobs = async (req, res) => {
 }
 
 const getJob = async (req, res) => {
+    const job = await Job.findById({createdBy: req.user.userId})
+    res.status(StatusCodes.OK).json({job})
 
     // res.send('get job')
 }
